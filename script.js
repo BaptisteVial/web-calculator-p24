@@ -41,6 +41,7 @@ keys.addEventListener('click', e => {
       } else {
         display.textContent = displayedNum + keyContent
       }
+      calculator.dataset.previousKeyType = 'number'
     }
 
     // Gestion des opérateurs
@@ -60,11 +61,16 @@ keys.addEventListener('click', e => {
     // Gestion du point décimal
     if (action === 'decimal') {
       display.textContent = displayedNum + '.'
+    } else if (previousKeyType === 'operator') {
+        display.textContent = '0.'
+    }
+    
+      calculator.dataset.previousKeyType = 'decimal'
     }
 
     // Réinitialisation (AC)
     if (action === 'clear') {
-      console.log('clear key!')
+      calculator.dataset.previousKeyType = 'clear'
     }
 
     // Calcul du résultat (=)
@@ -79,5 +85,6 @@ keys.addEventListener('click', e => {
     Array.from(key.parentNode.children).forEach(k =>
         k.classList.remove('is-depressed'),
       )
+      calculator.dataset.previousKeyType = 'calculate'
   }
 })
