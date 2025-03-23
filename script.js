@@ -16,36 +16,39 @@ keys.addEventListener('click', e => {
     const action = key.dataset.action
     const keyContent = key.textContent
     const displayedNum = display.textContent
-    // Do something
-  }
-})
 
-
-if (!action) {
-    if (displayedNum === '0') {
+    // Gestion des chiffres
+    if (!action) {
+      if (displayedNum === '0') {
         display.textContent = keyContent
-    } else {
+      } else {
         display.textContent = displayedNum + keyContent
+      }
+    }
+
+    // Gestion des opérateurs
+    if (
+      action === 'add' ||
+      action === 'subtract' ||
+      action === 'multiply' ||
+      action === 'divide'
+    ) {
+      console.log('operator key!')
+    }
+
+    // Gestion du point décimal
+    if (action === 'decimal') {
+      console.log('decimal key!')
+    }
+
+    // Réinitialisation (AC)
+    if (action === 'clear') {
+      console.log('clear key!')
+    }
+
+    // Calcul du résultat (=)
+    if (action === 'calculate') {
+      console.log('equal key!')
     }
   }
-
-  if (
-    action === 'add' ||
-    action === 'subtract' ||
-    action === 'multiply' ||
-    action === 'divide'
-  ) {
-    console.log('operator key!')
-  }
-
-  if (action === 'decimal') {
-    console.log('decimal key!')
-  }
-  
-  if (action === 'clear') {
-    console.log('clear key!')
-  }
-  
-  if (action === 'calculate') {
-    console.log('equal key!')
-  }
+})
