@@ -18,6 +18,22 @@ keys.addEventListener('click', e => {
     const displayedNum = display.textContent
     const previousKeyType = calculator.dataset.previousKeyType
 
+    const calculate = (n1, operator, n2) => {
+        let result = ''
+      
+        if (operator === 'add') {
+          result = parseFloat(n1) + parseFloat(n2)
+        } else if (operator === 'subtract') {
+          result = parseFloat(n1) - parseFloat(n2)
+        } else if (operator === 'multiply') {
+          result = parseFloat(n1) * parseFloat(n2)
+        } else if (operator === 'divide') {
+          result = parseFloat(n1) / parseFloat(n2)
+        }
+      
+        return result
+      }
+
     // Gestion des chiffres
     if (!action) {
       if (displayedNum === '0' || previousKeyType === 'operator') {
@@ -37,6 +53,8 @@ keys.addEventListener('click', e => {
       key.classList.add('is-depressed')
       // Add custom attribute
       calculator.dataset.previousKeyType = 'operator'
+      calculator.dataset.firstValue = displayedNum
+      calculator.dataset.operator = action
     }
 
     // Gestion du point décimal
@@ -51,7 +69,11 @@ keys.addEventListener('click', e => {
 
     // Calcul du résultat (=)
     if (action === 'calculate') {
-      console.log('equal key!')
+      const firstValue = calculator.dataset.firstValue
+      const operator = calculator.dataset.operator
+      const secondValue = displayedNum
+
+      display.textContent = calculate(firstValue, operator, secondValue)
     }
     // Remove .is-depressed class from all keys
     Array.from(key.parentNode.children).forEach(k =>
