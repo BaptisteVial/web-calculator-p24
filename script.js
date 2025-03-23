@@ -16,10 +16,11 @@ keys.addEventListener('click', e => {
     const action = key.dataset.action
     const keyContent = key.textContent
     const displayedNum = display.textContent
+    const previousKeyType = calculator.dataset.previousKeyType
 
     // Gestion des chiffres
     if (!action) {
-      if (displayedNum === '0') {
+      if (displayedNum === '0' || previousKeyType === 'operator') {
         display.textContent = keyContent
       } else {
         display.textContent = displayedNum + keyContent
@@ -33,12 +34,14 @@ keys.addEventListener('click', e => {
       action === 'multiply' ||
       action === 'divide'
     ) {
-      console.log('operator key!')
+      key.classList.add('is-depressed')
+      // Add custom attribute
+      calculator.dataset.previousKeyType = 'operator'
     }
 
     // Gestion du point décimal
     if (action === 'decimal') {
-      console.log('decimal key!')
+      display.textContent = displayedNum + '.'
     }
 
     // Réinitialisation (AC)
@@ -50,5 +53,9 @@ keys.addEventListener('click', e => {
     if (action === 'calculate') {
       console.log('equal key!')
     }
+    // Remove .is-depressed class from all keys
+    Array.from(key.parentNode.children).forEach(k =>
+        k.classList.remove('is-depressed'),
+      )
   }
 })
